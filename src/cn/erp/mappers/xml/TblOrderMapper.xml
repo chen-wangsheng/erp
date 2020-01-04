@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.erp.mappers.TblOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.erp.pojo.TblOrder" >
+    <id column="uuid" property="uuid" jdbcType="BIGINT" />
+    <result column="orderNum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="BIGINT" />
+    <result column="createTime" property="createtime" jdbcType="BIGINT" />
+    <result column="checker" property="checker" jdbcType="BIGINT" />
+    <result column="checkTime" property="checktime" jdbcType="BIGINT" />
+    <result column="completer" property="completer" jdbcType="BIGINT" />
+    <result column="endTime" property="endtime" jdbcType="BIGINT" />
+    <result column="orderType" property="ordertype" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="totalNum" property="totalnum" jdbcType="INTEGER" />
+    <result column="totalPrice" property="totalprice" jdbcType="DOUBLE" />
+    <result column="supplierUuid" property="supplieruuid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uuid, orderNum, creater, createTime, checker, checkTime, completer, endTime, orderType, 
+    type, totalNum, totalPrice, supplierUuid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.erp.pojo.TblOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_order
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_order
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.erp.pojo.TblOrderExample" >
+    delete from tbl_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.erp.pojo.TblOrder" >
+    insert into tbl_order (uuid, orderNum, creater, 
+      createTime, checker, checkTime, 
+      completer, endTime, orderType, 
+      type, totalNum, totalPrice, 
+      supplierUuid)
+    values (#{uuid,jdbcType=BIGINT}, #{ordernum,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=BIGINT}, #{checker,jdbcType=BIGINT}, #{checktime,jdbcType=BIGINT}, 
+      #{completer,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT}, #{ordertype,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{totalnum,jdbcType=INTEGER}, #{totalprice,jdbcType=DOUBLE}, 
+      #{supplieruuid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.erp.pojo.TblOrder" >
+    insert into tbl_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="ordernum != null" >
+        orderNum,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="checker != null" >
+        checker,
+      </if>
+      <if test="checktime != null" >
+        checkTime,
+      </if>
+      <if test="completer != null" >
+        completer,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="ordertype != null" >
+        orderType,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="totalnum != null" >
+        totalNum,
+      </if>
+      <if test="totalprice != null" >
+        totalPrice,
+      </if>
+      <if test="supplieruuid != null" >
+        supplierUuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=BIGINT},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="checker != null" >
+        #{checker,jdbcType=BIGINT},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=BIGINT},
+      </if>
+      <if test="completer != null" >
+        #{completer,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="ordertype != null" >
+        #{ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="supplieruuid != null" >
+        #{supplieruuid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.erp.pojo.TblOrderExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_order
+    <set >
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=BIGINT},
+      </if>
+      <if test="record.ordernum != null" >
+        orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=BIGINT},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.checker != null" >
+        checker = #{record.checker,jdbcType=BIGINT},
+      </if>
+      <if test="record.checktime != null" >
+        checkTime = #{record.checktime,jdbcType=BIGINT},
+      </if>
+      <if test="record.completer != null" >
+        completer = #{record.completer,jdbcType=BIGINT},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.ordertype != null" >
+        orderType = #{record.ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalnum != null" >
+        totalNum = #{record.totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalprice != null" >
+        totalPrice = #{record.totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.supplieruuid != null" >
+        supplierUuid = #{record.supplieruuid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_order
+    set uuid = #{record.uuid,jdbcType=BIGINT},
+      orderNum = #{record.ordernum,jdbcType=VARCHAR},
+      creater = #{record.creater,jdbcType=BIGINT},
+      createTime = #{record.createtime,jdbcType=BIGINT},
+      checker = #{record.checker,jdbcType=BIGINT},
+      checkTime = #{record.checktime,jdbcType=BIGINT},
+      completer = #{record.completer,jdbcType=BIGINT},
+      endTime = #{record.endtime,jdbcType=BIGINT},
+      orderType = #{record.ordertype,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      totalNum = #{record.totalnum,jdbcType=INTEGER},
+      totalPrice = #{record.totalprice,jdbcType=DOUBLE},
+      supplierUuid = #{record.supplieruuid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.erp.pojo.TblOrder" >
+    update tbl_order
+    <set >
+      <if test="ordernum != null" >
+        orderNum = #{ordernum,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="checker != null" >
+        checker = #{checker,jdbcType=BIGINT},
+      </if>
+      <if test="checktime != null" >
+        checkTime = #{checktime,jdbcType=BIGINT},
+      </if>
+      <if test="completer != null" >
+        completer = #{completer,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="ordertype != null" >
+        orderType = #{ordertype,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        totalNum = #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="totalprice != null" >
+        totalPrice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="supplieruuid != null" >
+        supplierUuid = #{supplieruuid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.erp.pojo.TblOrder" >
+    update tbl_order
+    set orderNum = #{ordernum,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=BIGINT},
+      checker = #{checker,jdbcType=BIGINT},
+      checkTime = #{checktime,jdbcType=BIGINT},
+      completer = #{completer,jdbcType=BIGINT},
+      endTime = #{endtime,jdbcType=BIGINT},
+      orderType = #{ordertype,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      totalNum = #{totalnum,jdbcType=INTEGER},
+      totalPrice = #{totalprice,jdbcType=DOUBLE},
+      supplierUuid = #{supplieruuid,jdbcType=BIGINT}
+    where uuid = #{uuid,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据供应商查询出商品类别信息和商品信息 -->
+  <!-- <select id="">
+  SELECT
+	*
+FROM
+	tbl_supplier ts
+inner JOIN tbl_goodstype tgt ON ts.uuid = tgt.supplierUuid 
+inner JOIN tbl_goods tg ON tg.goodsTypeUuid=tgt.uuid
+where ts.uuid= #{id}
+  </select> -->
+  
+  <!-- 根据订单id查询订单信息动态sql -->
+  <select id="selOrderByOrderNum" parameterType="java.lang.Long" resultType="cn.erp.dto.OrderDto">
+  SELECT
+  tor.*,
+	ts.name as gysname,
+	te.username as zdrname
+FROM
+	tbl_order tor
+INNER JOIN tbl_supplier ts ON tor.supplierUuid=ts.uuid
+inner JOIN tbl_emp te on tor.creater=te.uuid
+where 1=1
+<if test="uuid != null and uuid != ''">
+and tor.uuid=#{uuid}
+</if>
+  </select>
+  
+  <!-- 根据订单id查询订单详情 -->
+  <select id="selOrderDetailById" parameterType="java.lang.Long" resultType="cn.erp.dto.OrderDetailDto">
+  SELECT
+	tor.*,
+	tol.uuid as ddxquuid
+FROM
+	tbl_order tor
+INNER JOIN tbl_orderdetail tol ON tor.uuid = tol.orderUuid
+ WHERE
+	tor.uuid = #{uuid}
+  
+  </select>
+  
+  <!-- 订单审核 列表根据下单时间 和下单人查询-->
+  <select id="selOrderByTimeAndCreater" resultType="cn.erp.dto.SelOrderByTimeAndCreaterDto">
+  SELECT DISTINCT
+	tor.orderNum  as ordernum,
+	te. NAME AS zdrname,
+	ts. NAME AS gysname,
+	tor.createTime as createtime,
+	tol.num,
+	tor.totalPrice as totalprice,
+	tor.uuid
+FROM
+	tbl_order tor
+INNER JOIN tbl_orderdetail tol ON tor.uuid = tol.orderUuid
+INNER JOIN tbl_emp te ON tor.creater = te.uuid
+INNER JOIN tbl_supplier ts ON ts.uuid = tor.supplierUuid
+where 1=1 
+
+<if test="zdrname != null">
+and tor.creater=#{zdrname}
+</if>
+<if test="createtime != null and createtimeend != null">
+ and tor.createTime BETWEEN #{createtime} and #{createtimeend} ORDER BY tor.createTime
+</if>
+
+  </select>
+  
+  
+  
+  <!-- 根据订单id查询出商品类别name和商品name -->
+  <!-- <select id="selGoodsNameAndGoodsTypeNameById" resultType="" parameterType="java.lang.Long">
+  SELECT
+	*
+FROM
+	(
+		SELECT
+			uuid,
+			NAME AS goodsTypeName
+		FROM
+			tbl_goodstype
+		WHERE
+			uuid IN (
+				SELECT
+					A.goodsTypeUuid
+				FROM
+					(
+						SELECT
+							tbl_goods. NAME AS goodsName,
+							tbl_goods.uuid AS goodsUuid,
+							tbl_goods.goodsTypeUuid AS goodsTypeUuid
+						FROM
+							tbl_goods
+						WHERE
+							uuid IN (
+								SELECT
+									goodsUuid
+								FROM
+									tbl_orderdetail
+								WHERE
+									orderUuid = 1
+							)
+					) AS A
+			)
+	) AS C,
+	(
+		SELECT
+			A.goodsTypeUuid AS goodsTypeUuid,
+			A.goodsName AS goodsName
+		FROM
+			(
+				SELECT
+					tbl_goods. NAME AS goodsName,
+					tbl_goods.uuid AS goodsUuid,
+					tbl_goods.goodsTypeUuid AS goodsTypeUuid
+				FROM
+					tbl_goods
+				WHERE
+					uuid IN (
+						SELECT
+							goodsUuid
+						FROM
+							tbl_orderdetail
+						WHERE
+							orderUuid = 1
+					)
+			) AS A
+	) AS D
+WHERE
+	C.uuid = D.goodsTypeUuid
+  </select> -->
+  
+  
+  <!-- 根据订单id返回商品单价  totalPrice废占时弃-->
+  <!-- <select id="selNumAndPriceById" resultType="cn.erp.dto.OrderNumPriceDto" parameterType="java.lang.Long">
+  SELECT
+	tor.totalNum as totalnum,
+	tor.totalPrice as totalprice,
+	tg.inPrice as inprice
+FROM
+	tbl_order tor
+INNER JOIN tbl_orderdetail tol ON tor.uuid = tol.orderUuid
+INNER JOIN tbl_goods tg ON tg.uuid = tol.goodsUuid
+WHERE
+	tor.uuid = #{uuid}
+  </select> -->
+  
+  
+  
+  
+</mapper>
